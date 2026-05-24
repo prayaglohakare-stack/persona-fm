@@ -97,3 +97,52 @@ def create_playlist(access_token):
     print("PLAYLIST TEXT:", response.text)
 
     return response.json()
+
+def search_track(access_token, query):
+    url = "https://api.spotify.com/v1/search"
+
+    headers = {
+        "Authorization": f"Bearer {access_token}"
+    }
+
+    params = {
+        "q": query,
+        "type": "track",
+        "limit": 1
+    }
+
+    response = requests.get(url, headers=headers, params=params)
+
+    if response.status_code != 200:
+        print("SEARCH FAILED:", query)
+        return None
+
+    data = response.json()
+
+    tracks = data.get("tracks", {}).get("items", [])
+
+    if not tracks:
+        print("NO TRACK FOUND:", query)
+        return None
+
+    return tracks[0]["uri"]
+
+
+def add_tracks_to_playlist(access_token, playlist_id, track_uris):
+    url = f"https://api.spotify.com/v1/playlists/{playlist_id}/tracks"
+
+    headers = {
+        "Authorization": f"Bearer {access_token}",
+        "Content-Type": "application/json"
+    }
+
+    data = {
+        "uris": track_uris
+    }
+
+    response = requests.post(url, headers=headers, json=data)
+
+    print("ADD TRACKS STATUS:", response.status_code)
+    print("ADD TRACKS TEXT:", response.text)
+
+    return response.json()
