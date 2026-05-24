@@ -115,7 +115,7 @@ export default function App() {
     if (currentQuestion < questions.length - 1) {
       setCurrentQuestion((prev) => prev + 1);
     } else {
-      const res = await axios.post("http://127.0.0.1:8000/analyze", {
+      const res = await axios.post("https://persona-fm.onrender.com/analyze", {
         answers: updated
       });
 
