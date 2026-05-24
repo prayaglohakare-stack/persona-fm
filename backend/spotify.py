@@ -29,13 +29,14 @@ def get_auth_url():
     code_challenge = generate_pkce()
 
     params = {
-        "client_id": CLIENT_ID,
-        "response_type": "code",
-        "redirect_uri": REDIRECT_URI,
-        "scope": "playlist-modify-public playlist-modify-private",
-        "code_challenge_method": "S256",
-        "code_challenge": code_challenge,
-    }
+    "client_id": CLIENT_ID,
+    "response_type": "code",
+    "redirect_uri": REDIRECT_URI,
+    "scope": "playlist-modify-public playlist-modify-private",
+    "code_challenge_method": "S256",
+    "code_challenge": code_challenge,
+    "show_dialog": "true",
+}
 
     return "https://accounts.spotify.com/authorize?" + urlencode(params)
 
