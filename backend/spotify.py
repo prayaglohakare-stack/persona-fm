@@ -29,14 +29,14 @@ def get_auth_url():
     code_challenge = generate_pkce()
 
     params = {
-    "client_id": CLIENT_ID,
-    "response_type": "code",
-    "redirect_uri": REDIRECT_URI,
-    "scope": "playlist-modify-public playlist-modify-private",
-    "code_challenge_method": "S256",
-    "code_challenge": code_challenge,
-    "show_dialog": "true",
-}
+        "client_id": CLIENT_ID,
+        "response_type": "code",
+        "redirect_uri": REDIRECT_URI,
+        "scope": "playlist-modify-public playlist-modify-private playlist-read-private",
+        "code_challenge_method": "S256",
+        "code_challenge": code_challenge,
+        "show_dialog": "true",
+    }
 
     return "https://accounts.spotify.com/authorize?" + urlencode(params)
 
@@ -56,10 +56,13 @@ def exchange_code_for_token(code):
 
     response = requests.post(url, data=data)
 
+    token_json = response.json()
+
     print("TOKEN STATUS:", response.status_code)
     print("TOKEN TEXT:", response.text)
+    print("TOKEN SCOPES:", token_json.get("scope"))
 
-    return response.json()
+    return token_json
 
 
 def get_user_profile(access_token):
@@ -98,6 +101,7 @@ def create_playlist(access_token):
     print("PLAYLIST TEXT:", response.text)
 
     return response.json()
+
 
 def search_track(access_token, query):
     url = "https://api.spotify.com/v1/search"
