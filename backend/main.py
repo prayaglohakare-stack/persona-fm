@@ -42,6 +42,6 @@ def callback(code: str):
     user = get_user_profile(access_token)
     user_id = user["id"]
 
-    playlist = create_playlist(access_token, user_id)
+    playlist = create_playlist(access_token)
 
     return playlist

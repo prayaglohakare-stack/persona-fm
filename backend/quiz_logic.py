@@ -1,23 +1,25 @@
 def analyze_quiz(answers):
-    scores = {
-        "heartbreak": 0,
-        "romantic": 0,
-        "nostalgic": 0,
-        "focus": 0,
+    mood_map = {
+        "heartbreak": "2 AM Heartbreak Poet",
+        "romantic": "Hopeless Cinematic Romantic",
+        "focus": "Locked-In Main Character",
+        "nostalgic": "Time Traveler Dreamer",
     }
 
-    if answers.get("q1") == "A":
-        scores["heartbreak"] += 3
-    elif answers.get("q1") == "B":
-        scores["nostalgic"] += 3
-    elif answers.get("q1") == "C":
-        scores["focus"] += 3
-    elif answers.get("q1") == "D":
-        scores["romantic"] += 3
+    primary_mood = answers.get("q1", "nostalgic")
 
-    top_mood = max(scores, key=scores.get)
+    archetype = mood_map.get(primary_mood, "Time Traveler Dreamer")
 
-    return {
-        "archetype": top_mood,
-        "scores": scores
+    profile = {
+        "archetype": archetype,
+        "mood": primary_mood,
+        "context": answers.get("q2"),
+        "language": answers.get("q3"),
+        "cinematic": answers.get("q4"),
+        "era": answers.get("q5"),
+        "voice": answers.get("q6"),
+        "social": answers.get("q7"),
+        "intent": answers.get("q8"),
     }
+
+    return profile
