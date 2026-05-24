@@ -124,8 +124,8 @@ export default function App() {
   };
 
   const createPlaylist = () => {
-    setCreating(true);
-    window.location.href = "http://127.0.0.1:8000/login";
+  setCreating(true);
+  window.location.href = "https://persona-fm.onrender.com/login";
   };
 
   return (
