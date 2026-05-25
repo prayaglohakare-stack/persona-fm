@@ -105,11 +105,16 @@ def search_track(access_token, query):
 
 
 def add_tracks_to_playlist(access_token, playlist_id, track_uris):
-    response = requests.post(
-        f"https://api.spotify.com/v1/playlists/{playlist_id}/tracks",
-        headers={"Authorization": f"Bearer {access_token}"},
-        json={"uris": track_uris}
-    )
+    url = f"https://api.spotify.com/v1/playlists/{playlist_id}/tracks?uris={','.join(track_uris)}"
+
+    headers = {
+        "Authorization": f"Bearer {access_token}"
+    }
+
+    print("TRACK URIS:", track_uris)
+    print("REQUEST URL:", url)
+
+    response = requests.post(url, headers=headers)
 
     print("ADD TRACKS STATUS:", response.status_code)
     print("ADD TRACKS TEXT:", response.text)
